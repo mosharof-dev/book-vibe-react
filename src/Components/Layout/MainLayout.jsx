@@ -7,15 +7,11 @@ import 'react-toastify/dist/ReactToastify.css'
 const MainLayout = () => {
     return (
         <div>
-            <header>
+            
                 <NavBar/>
-            </header>
-            <main>
+           
                 <Outlet/>
-            </main>
-            <footer>
-
-            </footer>
+            
             <ToastContainer position="top-right" autoClose={3000} />
             
         </div>

@@ -45,8 +45,8 @@ const NavBar = () => {
   );
 
   return (
-  <nav className="sticky top-0 left-0 z-50 bg-base-100/90 backdrop-blur-md w-full ">
-     <div className="navbar sticky  max-w-7xl mx-auto px-4 lg:px-8 py-4">
+ <nav className="sticky top-0 z-100 backdrop-blur-md w-full border-b border-green-100">
+<div className="navbar max-w-7xl mx-auto px-4 lg:px-8 py-4">
       
       {/* --- Left Side: Just Logo --- */}
       <div className="navbar-start">

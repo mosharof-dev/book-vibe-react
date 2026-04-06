@@ -7,7 +7,7 @@ const AllBooks = () => {
     const books = use(allBooksPromise);
 
     return (
-        <div className="max-w-7xl mx-auto px-4 my-12">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 my-12">
             <h2 className='text-3xl font-bold text-center mb-10'>Books</h2>
             
             {/* Grid layout: Mobile e 1 ta, Tablet e 2 ta, Desktop e 3 ta */}
