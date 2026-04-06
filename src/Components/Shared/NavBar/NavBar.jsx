@@ -45,7 +45,8 @@ const NavBar = () => {
   );
 
   return (
-    <div className="navbar bg-base-100 max-w-7xl mx-auto px-4 lg:px-8 py-4">
+   <nav className=' sticky z-10'>
+     <div className="navbar  max-w-7xl mx-auto px-4 lg:px-8 py-4">
       
       {/* --- Left Side: Just Logo --- */}
       <div className="navbar-start">
@@ -85,6 +86,7 @@ const NavBar = () => {
       </div>
 
     </div>
+   </nav>
   );
 };
 
