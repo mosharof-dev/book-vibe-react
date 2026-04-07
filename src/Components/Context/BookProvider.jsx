@@ -7,7 +7,7 @@ const BookProvider = ({ children }) => {
   const [readList, setReadList] = useState([]);
   const [wishlist, setWishlist] = useState([]);
 
-  // Common notification style (optional)
+  // Common notification 
   const toastConfig = {
     position: "top-right",
     autoClose: 3000,
@@ -22,7 +22,7 @@ const BookProvider = ({ children }) => {
       toast.warn(`" ${book.bookName} " is already in your Read List! 📚`, toastConfig);
     } else {
       setReadList([...readList, book]);
-      // Wishlist theke remove kore deya bhalo jodi read list e add hoy
+      // Wishlist theke remove 
       setWishlist(wishlist.filter((b) => b.bookId !== book.bookId));
       toast.success(`Excellent! " ${book.bookName} " added to Read List. ✅`, toastConfig);
     }
