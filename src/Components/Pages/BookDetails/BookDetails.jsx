@@ -1,6 +1,12 @@
+import { useContext,  } from "react";
 import { useLoaderData, useParams } from "react-router";
+import { BookContext } from "../../Context/BookProvider";
+
 
 const BookDetails = () => {
+    const { handleMarkAsRead, storeBooks, setStoreBooks, handleWishlist } = useContext(BookContext)
+    console.log( handleMarkAsRead, storeBooks, setStoreBooks, 'contexBook ');
+  
     const { bookId } = useParams();
     const books = useLoaderData();
     const book = books.find(b => b.bookId == parseInt(bookId));
@@ -8,6 +14,9 @@ const BookDetails = () => {
     if (!book) return <div className="text-center py-20 text-2xl font-bold">Book not found!</div>;
 
     const { bookName, author, image, review, totalPages, rating, category, tags, publisher, yearOfPublishing } = book;
+
+    
+ 
 
     return (
         /* Container-center */
@@ -71,10 +80,12 @@ const BookDetails = () => {
 
             {/* Action Buttons */}
             <div className="flex gap-4">
-                <button className="px-8 py-3 border border-gray-300 rounded-lg font-bold hover:bg-black hover:text-white transition duration-300">
+                <button onClick={() => handleMarkAsRead(book)}
+                 className="px-8 py-3 border border-gray-300 rounded-lg font-bold hover:bg-black hover:text-white transition duration-300">
                     Read
                 </button>
-                <button className="px-8 py-3 bg-[#50B1C9] text-white rounded-lg font-bold hover:bg-[#3e93a7] transition duration-300">
+                <button onClick={() => handleWishlist(book)}
+                 className="px-8 py-3 bg-[#50B1C9] text-white rounded-lg font-bold hover:bg-[#3e93a7] transition duration-300">
                     Wishlist
                 </button>
             </div>
