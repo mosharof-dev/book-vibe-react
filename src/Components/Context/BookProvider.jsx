@@ -1,5 +1,13 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { 
+  addToStoredReadList, 
+  getStoredReadList, 
+  addToStoredWishlist,     
+  getStoredWishlist,      
+  removeFromStoredWishlist 
+} from '../../Routes/Utils/LocalDB';
+
 
 export const BookContext = createContext();
 
@@ -7,7 +15,12 @@ const BookProvider = ({ children }) => {
   const [readList, setReadList] = useState([]);
   const [wishlist, setWishlist] = useState([]);
 
-  // Common notification 
+  
+  useEffect(() => {
+    setReadList(getStoredReadList());
+    setWishlist(getStoredWishlist());
+  }, []);
+
   const toastConfig = {
     position: "top-right",
     autoClose: 3000,
@@ -19,12 +32,18 @@ const BookProvider = ({ children }) => {
     const isAlreadyRead = readList.find((b) => b.bookId === book.bookId);
 
     if (isAlreadyRead) {
-      toast.warn(`" ${book.bookName} " is already in your Read List! 📚`, toastConfig);
+      toast.warn(`"${book.bookName}" is already in your Read List! 📚`, toastConfig);
     } else {
+      // 1. Update State
       setReadList([...readList, book]);
-      // Wishlist theke remove 
-      setWishlist(wishlist.filter((b) => b.bookId !== book.bookId));
-      toast.success(`Excellent! " ${book.bookName} " added to Read List. ✅`, toastConfig);
+      const updatedWishlist = wishlist.filter((b) => b.bookId !== book.bookId);
+      setWishlist(updatedWishlist);
+
+      // 2. Update Local Storage
+      addToStoredReadList(book);
+      removeFromStoredWishlist(book.bookId);
+
+      toast.success(`Excellent! "${book.bookName}" added to Read List. ✅`, toastConfig);
     }
   };
 
@@ -34,15 +53,20 @@ const BookProvider = ({ children }) => {
     const isAlreadyInWishlist = wishlist.find((b) => b.bookId === book.bookId);
 
     if (isAlreadyRead) {
-      toast.info(`You've already finished " ${book.bookName} ". No need to wishlist! 📖`, toastConfig);
+      toast.info(`You've already finished "${book.bookName}". No need to wishlist! 📖`, toastConfig);
       return;
     }
 
     if (isAlreadyInWishlist) {
-      toast.error(`" ${book.bookName} " is already in your Wishlist! ❤️`, toastConfig);
+      toast.error(`"${book.bookName}" is already in your Wishlist! ❤️`, toastConfig);
     } else {
+      // 1. Update State
       setWishlist([...wishlist, book]);
-      toast.success(`Added " ${book.bookName} " to your Wishlist! ✨`, toastConfig);
+      
+      // 2. Update Local Storage
+      addToStoredWishlist(book);
+
+      toast.success(`Added "${book.bookName}" to your Wishlist! ✨`, toastConfig);
     }
   };
 
@@ -51,8 +75,6 @@ const BookProvider = ({ children }) => {
     wishlist,
     handleMarkAsRead,
     handleWishlist,
-    setReadList,
-    setWishlist
   };
 
   return (

@@ -5,7 +5,7 @@ import { BookContext } from "../../Context/BookProvider";
 
 const BookDetails = () => {
     const { handleMarkAsRead, storeBooks, setStoreBooks, handleWishlist } = useContext(BookContext)
-    console.log( handleMarkAsRead, storeBooks, setStoreBooks, 'contexBook ');
+    // console.log( handleMarkAsRead, storeBooks, setStoreBooks, 'contexBook ');
   
     const { bookId } = useParams();
     const books = useLoaderData();
