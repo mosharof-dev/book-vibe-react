@@ -31,7 +31,7 @@ const NavBar = () => {
       </li>
       <li>
         <NavLink
-          to="/pages-to-read"
+          to="/PagesToRead"
           className={({ isActive }) =>
             isActive
               ? "text-[#23BE0A] border border-[#23BE0A] px-4 py-2 rounded-lg font-bold bg-transparent"
